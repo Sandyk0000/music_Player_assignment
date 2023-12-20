@@ -1,10 +1,10 @@
-class SongsList{
+class Song{
   final String name;
   final String artist;
   final String imagePath;
    bool play;
 
-  SongsList({
+  Song({
     required this.name,
     required this.artist,
     required this.imagePath,

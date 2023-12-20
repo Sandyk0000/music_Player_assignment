@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<SongsList> _songsList = songsList;
+  final List<Song> _songsList = songs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

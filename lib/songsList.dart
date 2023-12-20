@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player__assignment/model/songModel.dart';
 
 class SongListWidget extends StatefulWidget {
-  final SongsList songList;
+  final Song songList;
 
   SongListWidget({required this.songList});
 
@@ -71,7 +71,7 @@ class _SongListWidgetState extends State<SongListWidget> {
 }
 
 class NowPlayingScreen extends StatelessWidget {
-  final SongsList song;
+  final Song song;
 
   NowPlayingScreen({required this.song});
 

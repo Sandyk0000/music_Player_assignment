@@ -1,26 +1,24 @@
 import "package:flutter/material.dart";
-import "package:music_player__assignment/model/songModel.dart";
-import "package:music_player__assignment/model/songdata.dart";
+import "package:music_player__assignment/model/song_provider.dart";
 import "package:music_player__assignment/songsList.dart";
+import "package:provider/provider.dart";
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  //final List<Song> _songsList = songs;
+  
 
-class _HomePageState extends State<HomePage> {
-  final List<Song> _songsList = songs;
   @override
   Widget build(BuildContext context) {
+    var songProvider = Provider.of<SongProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Music Player"),
       ),
       body: ListView.builder(
-        itemCount: _songsList.length,
+        itemCount: songProvider.songdetails.length,
         itemBuilder: (context, index) {
-            return SongListWidget(songList: _songsList[index]);
+          return SongListWidget(songList: songProvider.songdetails[index]);
         },
       ),
     );

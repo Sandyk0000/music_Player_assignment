@@ -1,24 +1,23 @@
+// song_list_widget.dart
 import 'package:flutter/material.dart';
 import 'package:music_player__assignment/model/songModel.dart';
+import 'package:music_player__assignment/model/song_provider.dart';
 import 'package:music_player__assignment/nowPlaying.dart';
+import 'package:provider/provider.dart';
 
-class SongListWidget extends StatefulWidget {
+
+class SongListWidget extends StatelessWidget {
   final Song songList;
 
   SongListWidget({required this.songList});
 
-  @override
-  State<SongListWidget> createState() => _SongListWidgetState();
-}
-
-class _SongListWidgetState extends State<SongListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: Row(
         children: [
-          leftColumn(),
+          leftColumn(context),
           Spacer(),
           rightColumn(),
         ],
@@ -26,18 +25,18 @@ class _SongListWidgetState extends State<SongListWidget> {
     );
   }
 
-  Widget leftColumn() {
+  Widget leftColumn(BuildContext context) {
     return Column(
       children: [
-        Text(widget.songList.name),
+        Text(songList.name),
         SizedBox(height: 10),
-        Text(widget.songList.artist),
+        Text(songList.artist),
         SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
-            _onPlayButtonPressed();
+            _onPlayButtonPressed(context);
           },
-          child: Text(widget.songList.play ? 'Pause' : 'Play'),
+          child: Text(songList.play ? 'Pause' : 'Play'),
         ),
       ],
     );
@@ -47,7 +46,7 @@ class _SongListWidgetState extends State<SongListWidget> {
     return Column(
       children: [
         Image.asset(
-          widget.songList.imagePath,
+          songList.imagePath,
           height: 65,
           width: 65,
         ),
@@ -55,20 +54,16 @@ class _SongListWidgetState extends State<SongListWidget> {
     );
   }
 
-  void _onPlayButtonPressed() {
-    // Set the play state
-    setState(() {
-      widget.songList.play = !widget.songList.play;
-    });
+  void _onPlayButtonPressed(BuildContext context) {
+    final songProvider = Provider.of<SongProvider>(context, listen: false);
 
-    // Navigate to a new screen when play button is pressed
+    songProvider.togglePlayState(songList);
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NowPlayingScreen(song: widget.songList),
+        builder: (context) => NowPlayingScreen(song: songList),
       ),
     );
   }
 }
-
-
